@@ -1,26 +1,30 @@
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from django.shortcuts import render
-from .forms import LoginForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from .forms import RegisterForm
 
-def user_login(request):
+def register(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(
-                request,
-                username=cd['username'],
-                password=cd['password']
-            )
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Account verififed.')
-                else:
-                    return HttpResponse('Disable account')
-            else:
-                return HttpResponse('Invalid login')
+            form.save()
+            return redirect('account:login')
     else:
-        form = LoginForm()
-        return render(request, 'account/login.html', {'form':form})
+        form = RegisterForm()
+
+    return render(request, 'account/register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            login(request, user)
+            return redirect('game_review:home')
+
+    return render(request, 'account/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('game_review:home')
