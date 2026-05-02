@@ -1,0 +1,91 @@
+{% extends "review/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Hero Image -->
+    <!-- Going to add a JavaScript button to change the Hero Image to cycle between images in the static folder and use a click event listener to detect the action -->
+    <header class="hero">
+        <img id="cycle-image" src="{% static 'imgs/mage.jpg' %}" alt="Mage">
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // JavaScript array to cycle between images on button click
+                const images = [
+                    "{% static 'imgs/dark_angel.jpg' %}",
+                    "{% static 'imgs/artificer.jpg' %}",
+                    "{% static 'imgs/Archer.jpeg' %}",
+                    "{% static 'imgs/Necromancer.jpg' %}",
+                    "{% static 'imgs/Wolf1.png' %}",
+                ];
+
+                let index = 0;
+
+                const imgElement = document.getElementById("cycle-image");
+                const btn = document.getElementById("cycle-btn");
+
+                btn.addEventListener("click", function () {
+                    index = (index + 1) % images.length;
+                    imgElement.src = images[index];
+                });
+            });
+        </script>
+
+        <div class="hero-text">
+            <p>Welcome to our game haven!<br>View and submit reviews!</p>
+            <button id="cycle-btn" class="cycle-button">Next Image</button>
+        </div>
+    </header>
+
+
+<h1>Enter Your Game Reviews</h1>
+
+<div>
+    <p>
+        We wanted to create a space for gamers, by gamers, to visit so they can give input and view another's about games they have played.
+        To find new games or try and save people the time and money of a disappointment, this can be your videogame haven.
+    </p>
+</div>
+
+{% comment %} API event from PokeAPI {% endcomment %}
+<button id="poke-btn" class="btn btn-primary" type="button">Show Random Pokemon with Stats</button>
+
+<div id="poke-result" style="margin-top: 20px;"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("poke-btn").addEventListener("click", async () => {
+    const res = await fetch("/pokemon/random/");
+    const data = await res.json();
+
+    document.getElementById("poke-result").innerHTML = `
+        <div style="text-align:center;">
+            <h2>${data.name}</h2>
+            <img src="${data.sprite}" alt="${data.name}">
+            <p><strong>HP:</strong> ${data.hp}</p>
+            <p><strong>Attack:</strong> ${data.attack}</p>
+            <p><strong>Defense:</strong> ${data.defense}</p>
+        </div>
+        `;
+    });
+
+})
+</script>
+
+
+{% if recently_viewed %}
+<hr>
+<h2>Recently Viewed Reviews</h2>
+
+<ul>
+    {% for review in recently_viewed %}
+        <li>
+            <a href="{% url 'review_detail' review.id %}">
+                {{ review.title }} — {{ review.rating }}/10
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

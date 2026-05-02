@@ -1,0 +1,29 @@
+{% extends "review/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Game Reviews</h1>
+
+{% for review in page_obj %}
+    <div class= "review-card">
+        <h2>{{ review.title }} - {{ review.rating }}/10</h2>
+        <p>{{ review.review_text }}</p>
+
+        {% comment %} Like count {% endcomment %}
+        <p>Likes: {{ review.like_count }}</p>
+        {% comment %} Like/Unlike button {% endcomment %}
+        {% if user.is_authenticated %}
+            {% if review.user_has_liked %}
+                <a href="{% url 'toggle_like' review.id %}" class="btn btn-secondary">Unlike</a>
+            {% else %}
+                <a href="{% url 'toggle_like' review.id %}" class="btn btn-primary">Like</a>
+            {% endif %}        {% else %}
+            <p><em>Login to like this review.</em></p>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}
+
+{% include "review/pagination.html" with page=page_obj %}
+{% endblock %}

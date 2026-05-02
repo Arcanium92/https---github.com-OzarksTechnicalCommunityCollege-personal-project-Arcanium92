@@ -1,0 +1,14 @@
+{% extends "review/base.html" %}
+{% block title %}Submit Review{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Submit a Review</h1>
+
+<form method="post" class="review-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Submit Review</button>
+</form>
+
+<p><a href="{% url 'home' %}">Return to reviews</a></p>
+{% endblock %}
