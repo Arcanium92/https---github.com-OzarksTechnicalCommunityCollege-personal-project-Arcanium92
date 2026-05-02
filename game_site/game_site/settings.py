@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'PersonalProject.urls'
+ROOT_URLCONF = 'game_site.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PersonalProject.wsgi.application'
+WSGI_APPLICATION = 'game_site.wsgi.application'
 
 
 # Database
@@ -128,9 +128,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # User authentication
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
+LOGOUT_REDIRECT_URL = 'account:login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
