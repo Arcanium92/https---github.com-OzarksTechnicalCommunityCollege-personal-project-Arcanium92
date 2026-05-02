@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'game_review.apps.GameReviewConfig', #create database tables for game_review models
+
+    'game_review.apps.GameReviewConfig',
+    'account.apps.AccountConfig',
+    
     'debug_toolbar',
     'rest_framework',
 ]
@@ -77,19 +80,12 @@ WSGI_APPLICATION = 'game_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
-# Updated the database from SqlLite to Postgres 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -128,7 +124,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # User authentication
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = '/'
 LOGOUT_REDIRECT_URL = 'account:login'
 

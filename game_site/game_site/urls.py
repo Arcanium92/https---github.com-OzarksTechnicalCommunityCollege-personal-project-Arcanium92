@@ -1,12 +1,15 @@
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # Authentication
     path('account/', include('account.urls', namespace='account')),
-
-    # Main website
-    path('', include('game_review.urls', namespace='game_review')),
+    path('', include('game_review.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

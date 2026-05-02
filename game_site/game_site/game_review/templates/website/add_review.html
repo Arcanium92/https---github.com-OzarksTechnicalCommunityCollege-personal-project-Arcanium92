@@ -1,0 +1,15 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}Submit Review{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Submit a Review</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>
+
+{% endblock %}

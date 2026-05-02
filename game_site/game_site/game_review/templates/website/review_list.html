@@ -1,0 +1,17 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Game Reviews</h1>
+
+{% for review in reviews %}
+    <div>
+        <h2>{{ review.title }} - {{ review.rating }}/10</h2>
+        <p>{{ review.review_text }}</p>
+    </div>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}
+
+{% include "website/pagination.html" with page=reviews %}
+{% endblock %}
