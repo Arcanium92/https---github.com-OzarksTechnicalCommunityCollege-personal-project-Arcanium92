@@ -70,6 +70,7 @@ class ReviewLike(models.Model):
     def __str__(self):
         return f"{self.user} liked {self.review}"
     
+
 # Game genres for review
 class Game(models.Model):
     name = models.CharField(max_length=100)
@@ -105,3 +106,4 @@ class Genre(models.Model):
         ]
     def __str__(self):
         return self.name
+    
