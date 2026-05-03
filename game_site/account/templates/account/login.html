@@ -1,15 +1,17 @@
 {% extends "website/base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="auth-container">
-    <h2>Login</h2>
+    <h2 class="auth-title">Login</h2>
 
-    <form method="POST">
+    <form method="POST" action="{% url 'account:login' %}" class="review-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" type="submit">Log In</button>
+        <button type="submit" class="auth-button">Login</button>
     </form>
 
-    <a href="{% url 'account:password_reset' %}">Forgot password</a>
+    <p class="auth-text">Don't have an account yet?</p>
+    <a href="{% url 'account:register' %}" class="review-form">Create Account</a>
 </div>
 {% endblock %}

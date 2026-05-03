@@ -47,14 +47,6 @@ class Profile(models.Model):
     def __str__(self):
         return f'Profile of {self.user.username}'
     
-# Database model - custom table
-# class Game(models.Model):
-#     title = models.CharField(max_length=250)
-
-#     def __str__(self):
-#         return self.title
-    
-# Added model for like reaction to views
 class ReviewLike(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

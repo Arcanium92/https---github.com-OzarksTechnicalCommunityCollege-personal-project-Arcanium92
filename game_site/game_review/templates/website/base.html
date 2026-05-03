@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Game Reviews{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'game_review/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
@@ -20,9 +20,8 @@
 
         <!-- Login/logut buttons -->
         <div class="login_logout_nav">
-            <a href="{% url 'login' %}">Login</a> |
-            <!-- Create if condition for logout button to display only if user is not logged in -->
-            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'account:login' %}">Login</a> |
+            <a href="{% url 'account:logout' %}">Logout</a>
         </div>
     </nav>
 
