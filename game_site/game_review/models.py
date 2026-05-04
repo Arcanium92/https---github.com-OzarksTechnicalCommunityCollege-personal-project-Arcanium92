@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.db.models.functions import Now
 
 # Create your models here.
 class GameReview(models.Model):
@@ -9,7 +8,7 @@ class GameReview(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='game_reviews', null=True, blank=True)
     rating = models.IntegerField()
     review_text = models.TextField()
-    submission = models.DateTimeField(db_default=Now())
+    submission = models.DateTimeField(auto_now_add=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     liked_by = models.ManyToManyField(
@@ -106,4 +105,3 @@ class Genre(models.Model):
         ]
     def __str__(self):
         return self.name
-    

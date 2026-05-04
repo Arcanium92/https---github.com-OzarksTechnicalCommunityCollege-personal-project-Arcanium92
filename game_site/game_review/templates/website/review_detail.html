@@ -1,0 +1,26 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+<h1>{{ review.title }}</h1>
+
+<p>{{ review.review_text }}</p>
+<p>Rating: {{ review.rating }}</p>
+
+<form action="{% url 'toggle_like' review.id %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="like-btn">
+        {% if user.is_authenticated %}
+            {% if user in review.likes.all %}
+                ❤️ Unlike
+            {% else %}
+                🤍 Like
+            {% endif %}
+        {% else %}
+            🔒 Login to like
+        {% endif %}
+    </button>
+</form>
+
+<p>Likes: {{ review.like_count }}</p>
+
+{% endblock %}
